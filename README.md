@@ -2,6 +2,8 @@
 
 This branch is for creating and customizing a NOOBS installation to implement a factory restore option for a Customized image of Windows 10 IoT Custom Core, without requiring a network connection. By eliminating a network connection the factory restore can be performed by the end user in a greatly reduced time.
 
+See the file "win-iot-customization.txt" for more information.
+
 Original NOOBS README.md follows:
 ---------------------------------
 
