@@ -1,28 +1,38 @@
-# winiot--custom-noobs
-To make a custom version of NOOBS that will provide a way to create a factory restore feature for customized Windoes 10 IoT images.
 
-This repo is created to try to make a custom version of NOOBS for Raspberri Pi that will implement a factory restore process to be used with customize commercial Windows 10 IoT images.
+GOAL: To make a custom version of NOOBS that will provide a way to create a factory restore feature for customized Windoes 10 IoT images.
 
 Based on the reading of NOOBS, this SHOULD work, but the resulting installation fails for some reason that I can't explain at the moment. Perhaps the community will notice a flaw and contribute.
+https://github.com/mjmeans/noobs
 
 I used:
+
 1. Notepad++ or other editor that can maintain the unix line endings.
 2. WinRAR or some other archiver program capable of extracting *.tar.xz files.
-3. SD Association's Formatting Tool from https://www.sdcard.org/downloads/formatter_4/eula_windows/.
+3. SD Association's Formatting Tool from "https://www.sdcard.org/downloads/formatter_4/eula_windows/".
 
 Here's what I discovered:
 
+1. When examining NOOBS full release with a local distribution of Raspbian against NOOBS_Lite and it's downloading and installation of Raspbian, I see that  NOOBS downloads a JSON file http://downloads.raspberrypi.org/os_list_v3.json and uses that to augment the os.json files in any folders under the ./os/ folder.
+2. So, it appeares the thing to do is manually download and save those files for Windows 10 IoT and make a few changes to use the local image.
+
+Here's what I did:
+
 1. I download NOOBS_Lite from raspberrypi.org and extracted it to C:\WinIoT-NOOBS\.   
-2. NOOBS has a hard coded routine that gets a list of operating systems from http://downloads.raspberrypi.org/os_list_v3.json. So I browsed that URL to retrieve the Windows IoT section. It begins with "os_name": "Windows 10 IoT Core".
-3. I downloaded the files indicated for: icon, marketting_info, os_info, partitions_info, partition_setup and tarballs and copy them into "C:\WinIoT-NOOBS\os\Windows_IoT\".
-4. I created a folder "C:\WinIoT-NOOBS\os\Windows_IoT\" and coped the downloaded files into that folder.
-5. I used Notepad++ which is able to matintain Unix line endings when editing json and sh files.
-6. I extracted the marketin.tar file into "C:\WinIoT-NOOBS\os\Windows_IoT\" which automaticallly created "C:\WinIoT-NOOBS\os\WinIoT\slides_vga\" with sevearl PNG files in it.
+2. I got the list of operating systems from "http://downloads.raspberrypi.org/os_list_v3.json". I found the Windows IoT section. It begins with "os_name": "Windows 10 IoT Core".
+3. I downloaded the files indicated for: icon, marketting_info, os_info, partitions_info, partition_setup and tarballs and copied them into "C:\WinIoT-NOOBS\os\win10iotcustom\".
+4. I created a folder "C:\WinIoT-NOOBS\os\win10iotcustom\" and coped the downloaded files into that folder.
+5. I edited os.json file to change it's the json name field from "Windows 10 IoT Core" to "Windows 10 IoT Core (custom)" so that it will be differentiated in case NOOBS downloads the foll list of OS's.
+6. I extracted the marketin.tar file into "C:\WinIoT-NOOBS\os\win10iotcustom\" which automaticallly created "C:\WinIoT-NOOBS\os\win10iotcustom\slides_vga\" with sevearl PNG files in it.
 7. I downloaded the latest release version of Windows 10 IoT. I renamed it to "IOT Core RPi.ISO" and copied it to the os folder.
-8. In the "partition_setup.sh" file I changed: IMAGE="/mnt/os/Windows_IoT/IOT Core RPi.ISO".
-9. In the if..fi section that refers to DEBUG and InstallationPrecheck. I added '#' characters to the beginning of all those lines to comment them out. That section brings up a loader that asks you to download the release or insider version. We will not be downloading.
+8. I edited the "partition_setup.sh" file I changed IMAGE="/mnt/os/win10iotcustom/IOT Core RPi.ISO" because we aren't going to downloadit.
+9. In the if..fi section that refers to DEBUG and InstallationPrecheck. I added '#' characters to the beginning of all those lines to comment them out. That section brings up a loader that asks you to download the release or insider version. We will not be downloading anything.
 10. The next if..fi section downloads the version selected. You will see a comment about downloading the ISO and a "wget" command. I commented out all of this section too.
-11. I changed the "Name": property to "My Windows 10 IoT Core Image" so that it is differentiated from the one NOOBS downloads if the RPi happens to be connected to the internet when it starts and downloads an entire list.
-12. I opened all json and sh files and resaved them with unit line endings.
-13. I prepared an SD card according the steps in the regular NOOBS distro.
+11. I opened all json and sh files and resaved them with unit line endings.
+12. I prepared an SD card according the steps in the regular NOOBS distro.
+
+NOTE: I copied the modified *.sh and *.json files into this repo in the ./sdcontent/ folder.
+
+Known issues:
+
+1. Something is very wrong. After installation, Windows IoT thinks there is a problem with the disk partitions and performs a repair. Following this repair, the image fails to load. I dont understand this because all the scripts and json files that NOOBS downloads has already been copied and is available the same way that NOOBS uses the json and scrips to distribute Raspbian from a local image.
 

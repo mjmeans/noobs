@@ -1,0 +1,54 @@
+{
+  "partitions": [
+    {
+      "label": "EFIESP",
+      "filesystem_type": "FAT",
+      "partition_size_nominal": 64,
+      "want_maximised": false,
+      "uncompressed_tarball_size": 15,
+      "empty_fs": true,
+      "requires_partition_number": 2
+    },
+    {
+      "label": "MainOS",
+      "filesystem_type": "ntfs",
+      "partition_size_nominal": 2000,
+      "want_maximised": false,
+      "uncompressed_tarball_size": 1024,
+      "empty_fs": true,
+      "requires_partition_number": 3
+    },
+    {
+      "label": "scratch",
+      "filesystem_type": "ext4",
+      "partition_size_nominal": 1200,
+      "want_maximised": false,
+      "uncompressed_tarball_size": 700,
+      "mkfs_options": ""
+    },
+    {
+      "label": "MBR_META",
+      "filesystem_type": "ext4",
+      "partition_size_nominal": 4,
+      "want_maximised": false,
+      "uncompressed_tarball_size": 1,
+      "empty_fs": true
+    },
+    {
+      "label": "Data",
+      "filesystem_type": "ntfs",
+      "partition_size_nominal": 1640,
+      "want_maximised": true,
+      "uncompressed_tarball_size": 30,
+      "empty_fs": true
+    },
+    {
+      "label": "tel",
+      "filesystem_type": "FAT",
+      "partition_size_nominal": 2,
+      "want_maximised": false,
+      "uncompressed_tarball_size": 1,
+      "empty_fs": true
+    }
+  ]
+}

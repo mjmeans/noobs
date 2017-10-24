@@ -1,0 +1,10 @@
+{
+	"name": "Windows 10 IoT Core (Custom)", 
+	"icon": "/mnt/os/Windows_IoT/Windows_IoT.png", 
+	"release_date": "2016-08-02", 
+	"description": "Windows for devices. Enables you to build projects and apps.", 
+	"marketing_info": "/mnt/os/Windows_IoT/marketing.tar", 
+	"url": "http://windowsondevices.com", 
+	"bootable": true, 
+	"supported_models": ["Pi 2", "Pi 3"]
+}
