@@ -1,8 +1,4 @@
-
 GOAL: To make a custom version of NOOBS that will provide a way to create a factory restore feature for customized Windoes 10 IoT images.
-
-Based on the reading of NOOBS, this SHOULD work, but the resulting installation fails for some reason that I can't explain at the moment. Perhaps the community will notice a flaw and contribute.
-https://github.com/mjmeans/noobs
 
 I used:
 
@@ -17,22 +13,24 @@ Here's what I discovered:
 
 Here's what I did:
 
-1. I download NOOBS_Lite from raspberrypi.org and extracted it to C:\WinIoT-NOOBS\.   
+1. I downloaded NOOBS from raspberrypi.org and prepared it according to it's instructions.
 2. I got the list of operating systems from "http://downloads.raspberrypi.org/os_list_v3.json". I found the Windows IoT section. It begins with "os_name": "Windows 10 IoT Core".
-3. I downloaded the files indicated for: icon, marketting_info, os_info, partitions_info, partition_setup and tarballs and copied them into "C:\WinIoT-NOOBS\os\win10iotcustom\".
-4. I created a folder "C:\WinIoT-NOOBS\os\win10iotcustom\" and coped the downloaded files into that folder.
-5. I edited os.json file to change it's the json name field from "Windows 10 IoT Core" to "Windows 10 IoT Core (custom)" so that it will be differentiated in case NOOBS downloads the foll list of OS's.
-6. I extracted the marketin.tar file into "C:\WinIoT-NOOBS\os\win10iotcustom\" which automaticallly created "C:\WinIoT-NOOBS\os\win10iotcustom\slides_vga\" with sevearl PNG files in it.
-7. I downloaded the latest release version of Windows 10 IoT. I renamed it to "IOT Core RPi.ISO" and copied it to the os folder.
-8. I edited the "partition_setup.sh" file I changed IMAGE="/mnt/os/win10iotcustom/IOT Core RPi.ISO" because we aren't going to downloadit.
-9. In the if..fi section that refers to DEBUG and InstallationPrecheck. I added '#' characters to the beginning of all those lines to comment them out. That section brings up a loader that asks you to download the release or insider version. We will not be downloading anything.
-10. The next if..fi section downloads the version selected. You will see a comment about downloading the ISO and a "wget" command. I commented out all of this section too.
-11. I opened all json and sh files and resaved them with unit line endings.
-12. I prepared an SD card according the steps in the regular NOOBS distro.
+3. I downloaded the files indicated for: icon, marketting_info, os_info, partitions_info, partition_setup and tarballs and copied them into "SDCARD:\os\win10iotcustom\".
+4. I created a folder "SDCARD:\os\win10iotcustom\" and copied the downloaded files into that folder.
+5. I edited the "SDCARD:\os\win10iotcustom\os.json" file to change it's the name field from "Windows 10 IoT Core" to "Windows 10 IoT Core (custom)" so that it will be differentiated in case NOOBS downloads the full list of OS's.
+6. I downloaded the latest release version of Windows 10 IoT Core ISO. I renamed it to "IOT Core RPi.ISO" and copied it to the os folder.
+7. I edited the "partition_setup.sh" file I changed to IMAGE="/mnt/os/win10iotcustom/IOT Core RPi.ISO" because we aren't going to download it.
+8. In the if..fi section that refers to DEBUG and InstallationPrecheck. I added '#' characters to the beginning of all those lines to comment them out. That section brings up a loader that asks you to download the release or insider version. We will not be downloading anything.
+9. The next if..fi section downloads the version selected. You will see a comment about downloading the ISO and a "wget" command. I commented out all of this section too.
+10. I opened all json and sh files and resaved them with unit line endings.
+11. I prepared an SD card according the steps in the regular NOOBS distro.
 
 NOTE: I copied the modified *.sh and *.json files into this repo in the ./sdcontent/ folder.
 
-Known issues:
+TO DO:
 
-1. Something is very wrong. After installation, Windows IoT thinks there is a problem with the disk partitions and performs a repair. Following this repair, the image fails to load. I dont understand this because all the scripts and json files that NOOBS downloads has already been copied and is available the same way that NOOBS uses the json and scrips to distribute Raspbian from a local image.
+It would be great if this used the flash.ffu file. It appears from the debug code near the beginning of partition_setup.sh that it could be possible since it referes to a debug option of flash.7z. I'll have to try that next.
 
+NOOBS itself needs to be modified to not attempt to download the os jason file if it happens to be connected to the internet.
+
+Maybe add some customizations so that NOOBS will display an OEM logo.

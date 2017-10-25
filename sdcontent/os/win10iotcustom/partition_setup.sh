@@ -18,8 +18,7 @@
 #  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 #  THE SOFTWARE.
 
-IMAGE="/tmp/scratch/IOT Core RPi.ISO"
-IMAGESRC="/mnt/os/Windows_IoT/IOT Core RPi.ISO"
+IMAGE="/mnt/os/win10iotcustom/IOT Core RPi.ISO"
 FFUARCHIVE="/tmp/iso/*.msi"
 FAILURE="Your installation has failed or has been canceled. You must reboot into recovery mode (press the Shift key on boot) to restart the installation."
 
@@ -109,7 +108,7 @@ cp /mnt2/* /tmp/scratch/EFIESP
 #  fi
 #fi
 
-if [ ! -f "$IMAGE" ] ; then
+#if [ ! -f "$IMAGE" ] ; then
 #  # download ISO image and mount it
 #  URL=`cat /tmp/scratch/isodlurl`
 #  printf "downloading from $URL"
@@ -123,8 +122,12 @@ if [ ! -f "$IMAGE" ] ; then
 #  tail /tmp/scratch/wgetoutput1.log > /tmp/scratch/wgetoutput.log
 #  rm /tmp/scratch/wgetoutput1.log
 #    $IMAGE="/mnt/os/WinIoT/IOT Core RPi.ISO"
-   cp "$IMAGESRC" "$IMAGE"
-fi
+#fi
+
+#find / -name 'partition_setup.sh' 1>&2
+#bash
+#exit 1
+
 
 if [ ! -r "$IMAGE" ] ; then
     printf "Error: missing OS image $IMAGE\r\n" 1>&2
@@ -140,6 +143,7 @@ if echo $IMAGE | grep -Eqi '.*\.iso'; then
       exit 1
   fi
 fi
+
 
 cd /tmp/scratch
 #unmount EFIESP
