@@ -15,7 +15,7 @@ Here's what I did:
 
 1. I downloaded NOOBS from raspberrypi.org and prepared it according to it's instructions.
 2. I got the list of operating systems from "http://downloads.raspberrypi.org/os_list_v3.json". I found the Windows IoT section. It begins with "os_name": "Windows 10 IoT Core".
-3. I downloaded the files indicated for: icon, marketting_info, os_info, partitions_info, partition_setup and tarballs and copied them into "SDCARD:\os\win10iotcustom\".
+3. I downloaded the files indicated for: icon, marketting_info, os_info, partitions_info, partition_setup and tarballs.
 4. I created a folder "SDCARD:\os\win10iotcustom\" and copied the downloaded files into that folder.
 5. I edited the "SDCARD:\os\win10iotcustom\os.json" file to change it's the name field from "Windows 10 IoT Core" to "Windows 10 IoT Core (custom)" so that it will be differentiated in case NOOBS downloads the full list of OS's.
 6. I downloaded the latest release version of Windows 10 IoT Core ISO. I renamed it to "IOT Core RPi.ISO" and copied it to the os folder.
@@ -31,6 +31,6 @@ TO DO:
 
 It would be great if this used the flash.ffu file. It appears from the debug code near the beginning of partition_setup.sh that it could be possible since it referes to a debug option of flash.7z. I'll have to try that next.
 
-NOOBS itself needs to be modified to not attempt to download the os jason file if it happens to be connected to the internet.
+NOOBS itself needs to be modified to not attempt to download the os json file if it happens to be connected to the internet.
 
 Maybe add some customizations so that NOOBS will display an OEM logo.
